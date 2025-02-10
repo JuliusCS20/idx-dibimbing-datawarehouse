@@ -33,12 +33,42 @@ mysql_engine = create_engine(
 query = "SELECT * FROM public.actor"  # Modify this query as needed
 df = pd.read_sql(query, pg_engine)
 
+query2 = "SELECT * FROM public.category"
+df2 = pd.read_sql(query2, pg_engine)
+
+query3 = "SELECT * FROM public.country"
+df3 = pd.read_sql(query3, pg_engine)
+
+query4 = "SELECT * FROM public.city"
+df4 = pd.read_sql(query4, pg_engine)
+
 # Load data into MySQL
 df.to_sql(
     name='actor', 
-    con=mysql_engine, 
+    con=mysql_engine,
     if_exists='replace', 
     index=False
-)
+);
+
+df2.to_sql(
+    name="category",
+    con=mysql_engine,
+    if_exists="replace",
+    index=False
+);
+
+df3.to_sql(
+    name="country",
+    con=mysql_engine,
+    if_exists="replace",
+    index=False
+);
+
+df4.to_sql(
+    name="city",
+    con=mysql_engine,
+    if_exists="replace",
+    index=False
+);
 
 print('Data transfer from PostgreSQL to MySQL completed successfully')
